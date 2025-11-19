@@ -5,4 +5,8 @@
  * @version Fall 2025
  */
 public class BST<E extends Comparable<E>> extends BinaryTree<E> implements BST_Ops<E> {
+    public BST(E data) {
+        super(data);
+    }
+    
 }
