@@ -84,6 +84,46 @@ public class BST<E extends Comparable<E>> extends BinaryTree<E> implements BST_O
      *  @return tree as modified
      */
     public BST<E> deleteWithCopyLeft(E evictee) {
+        BST<E> node = this;
+        BST<E> parent = null;
+        while (node != null){
+            if(evictee.compareTo(node.getData()) == 0){
+                return node;
+            }
+
+            else if(evictee.compareTo(node.getData()) < 0){
+                parent = node;
+                node =(BST<E>) node.getLeft();
+                if (node == null){
+                    return node;
+                }
+            }
+
+            else if(evictee.compareTo(node.getData())> 0){
+                parent = node;
+                node = (BST<E>) node.getRight();
+            }
+        }
+
+        if (node.getLeft() == null && node.getRight()==null){
+            if (parent == null){
+                node.setData(null);
+                return this;
+            }
+        }
+        
+        else if(node.getLeft() == null || node.getRight() == null){
+            if (parent.getLeft() == null){
+                parent.setLeft(null);
+            } else{
+                parent.setRight(null);
+            }
+
+        }
+
+
+
+
 
     }
 
@@ -108,7 +148,7 @@ public class BST<E extends Comparable<E>> extends BinaryTree<E> implements BST_O
     public BST<E> rotateRight() {
 
     }
-            /** Override inherited manipulator to accept only BST */
+        /** Override inherited manipulator to accept only BST */
         @Override
         public void setLeft(BinaryTree<E> left) {
           if ((left==null)||(left instanceof BST<E>)) {
