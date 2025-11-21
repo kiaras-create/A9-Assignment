@@ -95,6 +95,21 @@ public class BST<E extends Comparable<E>> extends BinaryTree<E> implements BST_O
      *  @return tree as modified
      */
     public BST<E> rotateLeft() {
+        if (this.getRight() == null) {
+            return this; // cannot rotate left if it doesn't have a right child
+        }
+
+        //Get the right child that will become the new node after rotation
+        BST<E> rightChild = (BST<E>) this.getRight();
+        
+        // Move its left subtree to be the right subtree
+        this.setRight(rightChild.getLeft());
+
+        // Make this node the left child of the right child
+        rightChild.setLeft(this);
+
+        // Return the new node of the rotated subtree
+        return rightChild;
 
     }
 
@@ -106,6 +121,21 @@ public class BST<E extends Comparable<E>> extends BinaryTree<E> implements BST_O
      *  @return tree as modified
      */
     public BST<E> rotateRight() {
+        if (this.getLeft() == null){
+            return this; // cannot rotate right if it doesn't have a left child
+        }
+
+        // Get the left child that will become the new node after rotation
+        BST<E> leftChild = (BST<E>) this.getLeft();
+        
+        // Move its right subtree to be the left subtree
+        this.setLeft(leftChild.getRight());
+
+        //Make this node the right child of the left child
+        leftChild.setRight(this);
+
+        // Return the new node of the rotated subtree
+        return leftChild;
 
     }
             /** Override inherited manipulator to accept only BST */
