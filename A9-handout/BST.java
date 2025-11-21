@@ -113,28 +113,62 @@ public class BST<E extends Comparable<E>> extends BinaryTree<E> implements BST_O
                 return this;
             }
 
-        
+        // if the node only has a right child
         } else if (node.getLeft() == null && node.getRight() != null) {
+            // store the right child in a node to keep track of
             BST <E> replace = (BST <E>) node.getRight();
             
-            if (parent.getData().compareTo(node.getData()) < 0) {
+            // if the parent's left child is equal to the node, replace the node with the new child "replace"
+            if (parent.getLeft() == node) {
                 parent.setLeft(replace);
-            } else if (parent.getData().compareTo(node.getData()) > 0) {
+            // if the parent's right child is equal to the node, replace the node with the new child "replace"
+            } else if (parent.getRight() == node) {
                 parent.setRight(replace);
             }
 
+        // if the node only has a left child
         } else if (node.getLeft() != null && node.getRight() == null) {
             BST <E> replace = (BST <E>) node.getLeft();
          
-            if (parent.getData().compareTo(node.getData()) < 0) {
+            // if the parent's left child is equal to the node, replace the node with the new child "replace"
+            if (parent.getLeft() == node) {
                 parent.setLeft(replace);
-            } else if (parent.getData().compareTo(node.getData()) > 0) {
+            // if the parent's right child is equal to the node, replace the node with the new child "replace"
+            } else if (parent.getRight() == node) {
                 parent.setRight(replace);
             }
-            
-        } else if (node.getLeft() == null && node.getRight() == null) {
-            
+        
+        // if node has two children
+        } else if (node.getLeft() != null && node.getRight() != null) {
+            // in the end, this will store our new data that we replaced the node with
+            BST<E> tempParent = node;
+            // pointer
+            BST<E> successor = (BST <E>) node.getRight();
+
+            // traverses through to find largest value in the left subtree of the node
+            // stops when the node is a leaf
+            while (successor.getLeft() != null) {
+                tempParent = successor;
+                successor = (BST <E>) successor.getLeft();
+            }
+
+            // replaces the data of the node with the largest value in the left subtree
+            node.setData(successor.getData());
+
+            // stores the right child of the node that we want to use to replace
+            BST<E> child = (BST <E>) successor.getRight();
+
+            // if the left child of the new node is equivalent to the successor, set the left child's data as child
+            if (tempParent.getLeft() == successor) {
+                tempParent.setLeft(child);
+            // if the first statement doesn't hold true, set the right child's data as child
+            // right child of the new node is equivalent to the successor
+            } else {
+                tempParent.setRight(child);
+            }
+
         }
+        return this;
 
     }
 
