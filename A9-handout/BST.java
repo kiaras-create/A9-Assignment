@@ -19,16 +19,22 @@ public class BST<E extends Comparable<E>> extends BinaryTree<E> implements BST_O
      */
     public BST<E> lookup(E data) {
 
+        // stop condition, if current node's data is null
         if (this.getData() == null) {
             return null;
         }
 
+        // stop condition, if given element's data and current node's data matches
         if (this.getData() == data) {
-            return t;
+            return this;
         }
 
-        if (int compareTo(data) < 0) {
-            lookup(data);
+        // if current node's data is before the given element's data
+        if (this.getData().compareTo(data) < 0) {
+            return lookup(data);
+        } else {
+            // else if current node's data is after given element's data
+            return lookup(data);
         }
 
     }
