@@ -31,7 +31,7 @@ public class BST<E extends Comparable<E>> extends BinaryTree<E> implements BST_O
 
         // if current node's data is before the given element's data
         if (this.getData().compareTo(data) < 0) {
-            return lookup(data);
+            return this.getRight().lookup(data);
         } else {
             // else if current node's data is after given element's data
             return lookup(data);
@@ -105,25 +105,36 @@ public class BST<E extends Comparable<E>> extends BinaryTree<E> implements BST_O
             }
         }
 
+        // deleting
+        // if the target element is a root node, single
         if (node.getLeft() == null && node.getRight()==null){
             if (parent == null){
                 node.setData(null);
                 return this;
             }
-        }
+
         
-        else if(node.getLeft() == null || node.getRight() == null){
-            if (parent.getLeft() == null){
-                parent.setLeft(null);
-            } else{
-                parent.setRight(null);
+        } else if (node.getLeft() == null && node.getRight() != null) {
+            BST <E> replace = (BST <E>) node.getRight();
+            
+            if (parent.getData().compareTo(node.getData()) < 0) {
+                parent.setLeft(replace);
+            } else if (parent.getData().compareTo(node.getData()) > 0) {
+                parent.setRight(replace);
             }
 
+        } else if (node.getLeft() != null && node.getRight() == null) {
+            BST <E> replace = (BST <E>) node.getLeft();
+         
+            if (parent.getData().compareTo(node.getData()) < 0) {
+                parent.setLeft(replace);
+            } else if (parent.getData().compareTo(node.getData()) > 0) {
+                parent.setRight(replace);
+            }
+            
+        } else if (node.getLeft() == null && node.getRight() == null) {
+            
         }
-
-
-
-
 
     }
 
