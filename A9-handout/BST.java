@@ -142,29 +142,29 @@ public class BST<E extends Comparable<E>> extends BinaryTree<E> implements BST_O
         } else if (node.getLeft() != null && node.getRight() != null) {
             // in the end, this will store our new data that we replaced the node with
             BST<E> tempParent = node;
-            // pointer
-            BST<E> successor = (BST <E>) node.getRight();
+            // pointer that starts off as the left child of the node
+            BST<E> successor = (BST <E>) node.getLeft();
 
-            // traverses through to find largest value in the left subtree of the node
+            // traverses through to find largest value in the right subtree of the successor
             // stops when the node is a leaf
-            while (successor.getLeft() != null) {
+            while (successor.getRight() != null) {
                 tempParent = successor;
-                successor = (BST <E>) successor.getLeft();
+                successor = (BST <E>) successor.getRight();
             }
 
             // replaces the data of the node with the largest value in the left subtree
             node.setData(successor.getData());
 
-            // stores the right child of the node that we want to use to replace
-            BST<E> child = (BST <E>) successor.getRight();
+            // stores the left child of successor that we want to use to replace
+            BST<E> child = (BST <E>) successor.getLeft();
 
-            // if the left child of the new node is equivalent to the successor, set the left child's data as child
-            if (tempParent.getLeft() == successor) {
-                tempParent.setLeft(child);
-            // if the first statement doesn't hold true, set the right child's data as child
-            // right child of the new node is equivalent to the successor
-            } else {
+            // if the right child of the new data node is equivalent to the successor, set the right child's data as child
+            if (tempParent.getRight() == successor) {
                 tempParent.setRight(child);
+            // if the first statement doesn't hold true, set the left child's data as child
+            // left child of the new node is equivalent to the successor
+            } else {
+                tempParent.setLeft(child);
             }
 
         }
