@@ -50,8 +50,37 @@ public class Conversion {
 
   /** Convert BinaryTree to DLL */
   public static <S extends Comparable<S>> DLL<S> binaryTreeToDLL(BinaryTree<S> t) {
-    return null; // replace this with your implementation
-  } 
+    if (t == null) return new DLL<S>(); // replace this with your implementation
 
+  
+    DLL<S> leftList = binaryTreeToDLL(t.getLeft());
+
+    DLL<S> rightList = binaryTreeToDLL(t.getRight());
+
+    t.setLeft(null);
+    t.setRight(null);
+
+    DLL<S> result = new DLL<S>();
+
+    if (!leftList.isEmpty()){
+      BinaryTree<S> leftTail = leftList.getTail();
+      leftTail.setRight(t);
+      t.setLeft(leftTail);
+    } else {
+      result = new DLL<S>(t, t);
+    }
+
+    if(!rightList.isEmpty()){
+      BinaryTree <S> rightHead = rightList.getHead();
+      
+      t.setRight(rightHead);
+      rightHead.setLeft(t);
+
+      result = new DLL<S>(result.getHead(), rightList.getTail());
+    } 
+    result = new DLL<S>(result.getHead(),rightList.getTail());
+    return result;
+
+  }
   
 }
