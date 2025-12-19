@@ -64,7 +64,7 @@ public class BSTTests {
         tree.insert(4);
         tree = tree.deleteWithCopyLeft(4);
         Integer[][] expected = {
-            {4},
+            {5},
             {null, 6},
             {null, null, null,10}
         };
@@ -137,7 +137,19 @@ public class BSTTests {
         };
         verifyBT(tree, expected);
     }
+    @Test
+    public void testLookup(){
+        BST<Integer> tree = new BST<Integer>(10);
+        tree.insert(5);
+        tree.insert(15);
 
+        assertNotNull(tree.lookup(10));
+        assertNotNull(tree.lookup(15));
+        assertNotNull(tree.lookup(5));
+
+        assertNull(tree.lookup(7));
+
+    }
 
 
 
