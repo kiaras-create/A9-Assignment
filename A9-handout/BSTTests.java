@@ -110,7 +110,7 @@ public class BSTTests {
         verifyBT(tree,expected);
 
     }
-
+    //Test rotate left
     @Test 
     public void TestBSTRotateLeft(){
         BST<Integer> tree = new BST<>(10);
@@ -125,7 +125,8 @@ public class BSTTests {
            verifyBT(tree, expected);
         
     }
-
+    //Test rotate right
+    @Test
     public void TestBSTRotateRight(){
         BST<Integer> tree = new BST<Integer>(10);
         tree.insert(5);
@@ -137,6 +138,7 @@ public class BSTTests {
         };
         verifyBT(tree, expected);
     }
+    // Test lookup
     @Test
     public void testLookup(){
         BST<Integer> tree = new BST<Integer>(10);
